@@ -10,7 +10,7 @@ from googleapiclient.errors import HttpError
 from google.oauth2 import service_account
 
 from .config import SHEETS_SCOPES
-from .errors import FriendlyError, PermissionDeniedError, SheetNotFoundError
+from .errors import PermissionDeniedError, SheetNotFoundError
 
 
 LOG = logging.getLogger("youtube_exporter")
@@ -69,7 +69,12 @@ def read_existing_video_urls(
         return set()
 
 
-def ensure_sheet_exists(sheets_service, spreadsheet_id: str, sheet_name: str, service_account_json: Optional[str]) -> None:
+def ensure_sheet_exists(
+    sheets_service,
+    spreadsheet_id: str,
+    sheet_name: str,
+    service_account_json: Optional[str]
+) -> None:
     try:
         titles = list_sheet_titles(sheets_service, spreadsheet_id)
         if sheet_name not in titles:
@@ -95,6 +100,7 @@ def append_to_sheet(
         "YouTube Video Link",
         "Thumbnail",
         "Title",
+        "Posted Date",
         "Views Count",
         "Transcript"
     ]
@@ -108,6 +114,7 @@ def append_to_sheet(
             r.get("video_url", ""),
             thumbnail_formula,
             r.get("title", ""),
+            r.get("posted_date", ""),
             r.get("view_count", ""),
             r.get("transcript", ""),
         ])
