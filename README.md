@@ -189,6 +189,13 @@ The root folder contains:
 
 ---
 
+## Windows quick start
+
+On Windows, you can simply double click `start.bat` in the project root folder.  
+This will automatically install all required dependencies and launch the graphical interface.
+
+---
+
 ### Run using Windows Command Line or PowerShell
 
 1. Open the project root folder
